@@ -69,9 +69,9 @@ IF exist "maxcso.exe" (
   FOR %%I IN (*.iso) DO (
   	maxcso --block=%blocksize% "%%I"
  	 FOR %%S IN ("%%~nI.cso") DO (
-  		IF /I %%~zS LSS 1 ( call :errorcsocompressfailed %%S )
+  		IF %%~zS LSS 1 ( call :errorcsocompressfailed %%S )
   	)
-  	IF /I %delete% == Yes ( del "%%I" )
+  	IF %delete% == Yes ( del "%%I" )
   )
 ) else ( GOTO errorcso )
 GOTO done
@@ -119,9 +119,9 @@ IF exist "chdman.exe" (
   FOR %%I IN (*.iso) DO (
 	chdman createraw -us 2048 -hs %blocksize% -f -i "%%I" -o "%%~nI.chd"
 	FOR %%S IN ("%%~nI.chd") DO (
-	 	IF /I %%~zS LSS 1 ( call :errorchdfailed %%S )
+	 	IF %%~zS LSS 1 ( call :errorchdfailed %%S )
 	)
-  	IF /I %delete% == Yes ( del "%%I" )
+  	IF %delete% == Yes ( del "%%I" )
   )
 ) else ( GOTO errorchd )
 GOTO done
@@ -170,11 +170,11 @@ IF exist "chdman.exe" (
 	IF exist "%%~nI.bin" (
 		chdman createcd -hs %blocksize% -i "%%I" -o "%%~nI.chd"
 		FOR %%S IN ("%%~nI.chd") DO (
-		 	IF /I %%~zS LSS 1 ( call :errorchdfailed %%S )
+		 	IF %%~zS LSS 1 ( call :errorchdfailed %%S )
 		)
 	) else ( call :errorchdfailed "%%~nI.bin" )
   
-  	IF /I %delete% == Yes ( 
+  	IF %delete% == Yes ( 
 		del "%%I"
 		del "%%~nI.bin"
   	)
@@ -227,18 +227,18 @@ IF exist "maxcso.exe" (
 		maxcso --decompress "%%I"
 
 		FOR %%S IN ("%%~nI.iso") DO (
-			IF /I %%~zS LSS 1 ( call :errorcsoextractfailed %%S )
+			IF %%~zS LSS 1 ( call :errorcsoextractfailed %%S )
 		)
 	
 		IF exist "%%~nI.iso" (
 			chdman createraw -us 2048 -hs %blocksize% -f -i "%%~nI.iso" -o "%%~nI.chd"
 			FOR %%S IN ("%%~nI.chd") DO (
-		 		IF /I %%~zS LSS 1 ( call :errorchdfailed %%S )
+		 		IF %%~zS LSS 1 ( call :errorchdfailed %%S )
 			)
 			del "%%~nI.iso"
 		) else ( call :errorchdfailed "%%~nI.iso" )
 	
-		IF /I %delete% == Yes ( del "%%I" )
+		IF %delete% == Yes ( del "%%I" )
   	)
   ) else ( GOTO errorchd )
 ) else ( GOTO errorcso )
@@ -289,18 +289,18 @@ IF exist "maxcso.exe" (
 		chdman extractraw -i "%%I" -o "%%~nI.iso"
 
 		FOR %%S IN ("%%~nI.iso") DO (
-			IF /I %%~zS LSS 1 call :errorchdextractfailed "%%~nI.iso"
+			IF %%~zS LSS 1 call :errorchdextractfailed "%%~nI.iso"
 		)
 	
 		IF exist "%%~nI.iso" (
 			maxcso --block=%blocksize% "%%~nI.iso"
  			FOR %%S IN ("%%~nI.cso") DO (
-  				IF /I %%~zS LSS 1 ( call :errorcsocompressfailed %%S )
+  				IF %%~zS LSS 1 ( call :errorcsocompressfailed %%S )
   			)
 			del "%%~nI.iso"
 		) else ( call :errorchdextractfailed "%%~nI.iso" )
 	
-		IF /I %delete% == Yes ( del "%%I" )
+		IF %delete% == Yes ( del "%%I" )
   	)
   ) else ( GOTO errorchd )
 ) else ( GOTO errorcso )
@@ -327,10 +327,10 @@ IF exist "chdman.exe" (
   FOR %%I IN (*.chd) DO (
   	chdman extractraw -i "%%I" -o "%%~nI.iso"
   	FOR %%S IN ("%%~nI.iso") DO (
-  		IF /I %%~zS LSS 1 ( call :errorchdextractfailed %%S )
+  		IF %%~zS LSS 1 ( call :errorchdextractfailed %%S )
   	)
 
- 	IF /I %delete% == Yes ( del "%%I" )
+ 	IF %delete% == Yes ( del "%%I" )
   )
 ) else ( GOTO errorchd )
 GOTO done
@@ -356,12 +356,12 @@ IF exist "chdman.exe" (
 FOR %%I IN (*.chd) DO (
   	chdman extractcd -i "%%I" -o "%%~nI.cue"
   	FOR %%S IN ("%%~nI.cue") DO (
-  		IF /I %%~zS LSS 1 ( call :errorchdextractfailed %%S )
+  		IF %%~zS LSS 1 ( call :errorchdextractfailed %%S )
   	)
 	FOR %%S IN ("%%~nI.bin") DO (
-  		IF /I %%~zS LSS 1 ( call :errorchdextractfailed %%S )
+  		IF %%~zS LSS 1 ( call :errorchdextractfailed %%S )
   	)
- 	IF /I %delete% == Yes ( del "%%I" )
+ 	IF %delete% == Yes ( del "%%I" )
   )
 ) else ( GOTO errorchd )
 GOTO done
@@ -387,9 +387,9 @@ IF exist "maxcso.exe" (
 FOR %%I IN (*.cso) DO (
   	maxcso --decompress "%%I"
   	FOR %%S IN ("%%~nI.iso") DO (
-  		IF /I %%~zS LSS 1 ( call :errorcsoextractfailed %%S )
+  		IF %%~zS LSS 1 ( call :errorcsoextractfailed %%S )
   	)
- 	IF /I %delete% == Yes ( del "%%I" )
+ 	IF %delete% == Yes ( del "%%I" )
   )
 ) else ( GOTO errorcso )
 GOTO done
