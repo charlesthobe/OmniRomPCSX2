@@ -18,14 +18,14 @@ ECHO 7 - Extract CD CHD to CUE/BIN
 ECHO 8 - Extract CSO to ISO
 ECHO.
 SET /P M=Type 1, 2, 3, 4, 5, 6, 7, or 8 then press ENTER:
-IF /I %M%==1 GOTO convertisotocso
-IF /I %M%==2 GOTO convertisotochd
-IF /I %M%==3 GOTO convertcuebintochd
-IF /I %M%==4 GOTO convertcsotochd
-IF /I %M%==5 GOTO convertchdtocso
-IF /I %M%==6 GOTO extractdvdchdtoiso
-IF /I %M%==7 GOTO extractcdchdtoiso
-IF /I %M%==8 GOTO extractcsotoiso
+IF %M%==1 GOTO convertisotocso
+IF %M%==2 GOTO convertisotochd
+IF %M%==3 GOTO convertcuebintochd
+IF %M%==4 GOTO convertcsotochd
+IF %M%==5 GOTO convertchdtocso
+IF %M%==6 GOTO extractdvdchdtoiso
+IF %M%==7 GOTO extractcdchdtoiso
+IF %M%==8 GOTO extractcsotoiso
 GOTO done
 
 REM ============================CONVERT ISO TO CSO =============================
@@ -50,15 +50,15 @@ ECHO 1 - 16kb (bigger files, faster access/less CPU, choose this if you're unsur
 ECHO 2 - 128kb (balanced)
 ECHO 3 - 256kb (smaller files, slower access/more CPU)
 SET /P S=Type 1, 2, or 3 then press ENTER:
-IF /I %S%==1 (
+IF %S%==1 (
 set blocksize=16384
 GOTO convertisotocsostart
 )
-IF /I %S%==2 (
+IF %S%==2 (
 set blocksize=131072
 GOTO convertisotocsostart
 )
-IF /I %S%==3 (
+IF %S%==3 (
 set blocksize=262144
 GOTO convertisotocsostart
 )
@@ -100,15 +100,15 @@ ECHO 1 - 16kb (bigger files, faster access/less CPU, choose this if you're unsur
 ECHO 2 - 128kb (balanced)
 ECHO 3 - 256kb (smaller files, slower access/more CPU)
 SET /P S=Type 1, 2, or 3 then press ENTER:
-IF /I %S%==1 (
+IF %S%==1 (
 set blocksize=16384
 GOTO convertisotochdstart
 )
-IF /I %S%==2 (
+IF %S%==2 (
 set blocksize=131072
 GOTO convertisotochdstart
 )
-IF /I %S%==3 (
+IF %S%==3 (
 set blocksize=262144
 GOTO convertisotochdstart
 )
@@ -150,15 +150,15 @@ ECHO 1 - 16kb (bigger files, faster access/less CPU, choose this if you're unsur
 ECHO 2 - 128kb (balanced)
 ECHO 3 - 256kb (smaller files, slower access/more CPU)
 SET /P S=Type 1, 2, or 3 then press ENTER:
-IF /I %S%==1 (
+IF %S%==1 (
 set blocksize=17136
 GOTO convertcuebintochdstart
 )
-IF /I %S%==2 (
+IF %S%==2 (
 set blocksize=132192
 GOTO convertcuebintochdstart
 )
-IF /I %S%==3 (
+IF %S%==3 (
 set blocksize=264384
 GOTO convertcuebintochdstart
 )
@@ -205,15 +205,15 @@ ECHO 1 - 16kb (bigger files, faster access/less CPU, choose this if you're unsur
 ECHO 2 - 128kb (balanced)
 ECHO 3 - 256kb (smaller files, slower access/more CPU)
 SET /P S=Type 1, 2, or 3 then press ENTER:
-IF /I %S%==1 (
+IF %S%==1 (
 set blocksize=16384
 GOTO convertcsotochdstart
 )
-IF /I %S%==2 (
+IF %S%==2 (
 set blocksize=131072
 GOTO convertcsotochdstart
 )
-IF /I %S%==3 (
+IF %S%==3 (
 set blocksize=262144
 GOTO convertcsotochdstart
 )
@@ -267,15 +267,15 @@ ECHO 1 - 16kb (bigger files, faster access/less CPU, choose this if you're unsur
 ECHO 2 - 128kb (balanced)
 ECHO 3 - 256kb (smaller files, slower access/more CPU)
 SET /P S=Type 1, 2, or 3 then press ENTER:
-IF /I %S%==1 (
+IF %S%==1 (
 set blocksize=16384
 GOTO convertchdtocsostart
 )
-IF /I %S%==2 (
+IF %S%==2 (
 set blocksize=131072
 GOTO convertchdtocsostart
 )
-IF /I %S%==3 (
+IF %S%==3 (
 set blocksize=262144
 GOTO convertchdtocsostart
 )
