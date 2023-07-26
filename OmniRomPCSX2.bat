@@ -37,15 +37,7 @@ IF %D%==Y (
 set delete=Yes
 GOTO convertisotocsosize
 )
-IF %D%==y ( 
-set delete=Yes
-GOTO convertisotocsosize
-)
 IF %D%==N ( 
-set delete=No
-GOTO convertisotocsosize
-)
-IF %D%==n ( 
 set delete=No
 GOTO convertisotocsosize
 )
@@ -95,15 +87,7 @@ IF %D%==Y (
 set delete=Yes
 GOTO convertisotochdsize
 )
-IF %D%==y ( 
-set delete=Yes
-GOTO convertisotochdsize
-)
 IF %D%==N ( 
-set delete=No
-GOTO convertisotochdsize
-)
-IF %D%==n ( 
 set delete=No
 GOTO convertisotochdsize
 )
@@ -153,15 +137,7 @@ IF %D%==Y (
 set delete=Yes
 GOTO convertcuebintochdsize
 )
-IF %D%==y ( 
-set delete=Yes
-GOTO convertcuebintochdsize
-)
 IF %D%==N ( 
-set delete=No
-GOTO convertcuebintochdsize
-)
-IF %D%==n ( 
 set delete=No
 GOTO convertcuebintochdsize
 )
@@ -216,15 +192,7 @@ IF %D%==Y (
 set delete=Yes
 GOTO convertcsotochdsize
 )
-IF %D%==y ( 
-set delete=Yes
-GOTO convertcsotochdsize
-)
 IF %D%==N ( 
-set delete=No
-GOTO convertcsotochdsize
-)
-IF %D%==n ( 
 set delete=No
 GOTO convertcsotochdsize
 )
@@ -286,15 +254,7 @@ IF %D%==Y (
 set delete=Yes
 GOTO convertchdtocsosize
 )
-IF %D%==y ( 
-set delete=Yes
-GOTO convertchdtocsosize
-)
 IF %D%==N ( 
-set delete=No
-GOTO convertchdtocsosize
-)
-IF %D%==n ( 
 set delete=No
 GOTO convertchdtocsosize
 )
@@ -356,15 +316,7 @@ IF %D%==Y (
 set delete=Yes
 GOTO extractdvdchdtoisostart
 )
-IF %D%==y ( 
-set delete=Yes
-GOTO extractdvdchdtoisostart
-)
 IF %D%==N ( 
-set delete=No
-GOTO extractdvdchdtoisostart
-)
-IF %D%==n ( 
 set delete=No
 GOTO extractdvdchdtoisostart
 )
@@ -393,15 +345,7 @@ IF %D%==Y (
 set delete=Yes
 GOTO extractcdchdtoisostart
 )
-IF %D%==y ( 
-set delete=Yes
-GOTO extractcdchdtoisostart
-)
 IF %D%==N ( 
-set delete=No
-GOTO extractcdchdtoisostart
-)
-IF %D%==n ( 
 set delete=No
 GOTO extractcdchdtoisostart
 )
@@ -432,15 +376,7 @@ IF %D%==Y (
 set delete=Yes
 GOTO extractcsotoisostart
 )
-IF %D%==y ( 
-set delete=Yes
-GOTO extractcsotoisostart
-)
 IF %D%==N ( 
-set delete=No
-GOTO extractcsotoisostart
-)
-IF %D%==n ( 
 set delete=No
 GOTO extractcsotoisostart
 )
