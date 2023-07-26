@@ -18,14 +18,14 @@ ECHO 7 - Extract CD CHD to CUE/BIN
 ECHO 8 - Extract CSO to ISO
 ECHO.
 SET /P M=Type 1, 2, 3, 4, 5, 6, 7, or 8 then press ENTER:
-IF %M%==1 GOTO convertisotocso
-IF %M%==2 GOTO convertisotochd
-IF %M%==3 GOTO convertcuebintochd
-IF %M%==4 GOTO convertcsotochd
-IF %M%==5 GOTO convertchdtocso
-IF %M%==6 GOTO extractdvdchdtoiso
-IF %M%==7 GOTO extractcdchdtoiso
-IF %M%==8 GOTO extractcsotoiso
+IF /I %M%==1 GOTO convertisotocso
+IF /I %M%==2 GOTO convertisotochd
+IF /I %M%==3 GOTO convertcuebintochd
+IF /I %M%==4 GOTO convertcsotochd
+IF /I %M%==5 GOTO convertchdtocso
+IF /I %M%==6 GOTO extractdvdchdtoiso
+IF /I %M%==7 GOTO extractcdchdtoiso
+IF /I %M%==8 GOTO extractcsotoiso
 GOTO done
 
 REM ============================CONVERT ISO TO CSO =============================
@@ -33,11 +33,11 @@ REM ============================CONVERT ISO TO CSO =============================
 :convertisotocso
 ECHO Do you want to delete the original ISO files as they are converted?
 SET /P D=Type Y or N then press ENTER:
-IF %D%==Y ( 
+IF /I %D%==Y ( 
 set delete=Yes
 GOTO convertisotocsosize
 )
-IF %D%==N ( 
+IF /I %D%==N ( 
 set delete=No
 GOTO convertisotocsosize
 )
@@ -50,15 +50,15 @@ ECHO 1 - 16kb (bigger files, faster access/less CPU, choose this if you're unsur
 ECHO 2 - 128kb (balanced)
 ECHO 3 - 256kb (smaller files, slower access/more CPU)
 SET /P S=Type 1, 2, or 3 then press ENTER:
-IF %S%==1 (
+IF /I %S%==1 (
 set blocksize=16384
 GOTO convertisotocsostart
 )
-IF %S%==2 (
+IF /I %S%==2 (
 set blocksize=131072
 GOTO convertisotocsostart
 )
-IF %S%==3 (
+IF /I %S%==3 (
 set blocksize=262144
 GOTO convertisotocsostart
 )
@@ -69,9 +69,9 @@ IF exist "maxcso.exe" (
   FOR %%I IN (*.iso) DO (
   	maxcso --block=%blocksize% "%%I"
  	 FOR %%S IN ("%%~nI.cso") DO (
-  		IF %%~zS LSS 1 ( call :errorcsocompressfailed %%S )
+  		IF /I %%~zS LSS 1 ( call :errorcsocompressfailed %%S )
   	)
-  	IF %delete% == Yes ( del "%%I" )
+  	IF /I %delete% == Yes ( del "%%I" )
   )
 ) else ( GOTO errorcso )
 GOTO done
@@ -83,11 +83,11 @@ REM ============================CONVERT ISO TO CHD =============================
 :convertisotochd
 ECHO Do you want to delete the original ISO files as they are converted?
 SET /P D=Type Y or N then press ENTER:
-IF %D%==Y ( 
+IF /I %D%==Y ( 
 set delete=Yes
 GOTO convertisotochdsize
 )
-IF %D%==N ( 
+IF /I %D%==N ( 
 set delete=No
 GOTO convertisotochdsize
 )
@@ -100,15 +100,15 @@ ECHO 1 - 16kb (bigger files, faster access/less CPU, choose this if you're unsur
 ECHO 2 - 128kb (balanced)
 ECHO 3 - 256kb (smaller files, slower access/more CPU)
 SET /P S=Type 1, 2, or 3 then press ENTER:
-IF %S%==1 (
+IF /I %S%==1 (
 set blocksize=16384
 GOTO convertisotochdstart
 )
-IF %S%==2 (
+IF /I %S%==2 (
 set blocksize=131072
 GOTO convertisotochdstart
 )
-IF %S%==3 (
+IF /I %S%==3 (
 set blocksize=262144
 GOTO convertisotochdstart
 )
@@ -119,9 +119,9 @@ IF exist "chdman.exe" (
   FOR %%I IN (*.iso) DO (
 	chdman createraw -us 2048 -hs %blocksize% -f -i "%%I" -o "%%~nI.chd"
 	FOR %%S IN ("%%~nI.chd") DO (
-	 	IF %%~zS LSS 1 ( call :errorchdfailed %%S )
+	 	IF /I %%~zS LSS 1 ( call :errorchdfailed %%S )
 	)
-  	IF %delete% == Yes ( del "%%I" )
+  	IF /I %delete% == Yes ( del "%%I" )
   )
 ) else ( GOTO errorchd )
 GOTO done
@@ -133,11 +133,11 @@ REM ============================CONVERT CUEBIN TO CHD ==========================
 :convertcuebintochd
 ECHO Do you want to delete the original CUE/BIN files as they are converted?
 SET /P D=Type Y or N then press ENTER:
-IF %D%==Y ( 
+IF /I %D%==Y ( 
 set delete=Yes
 GOTO convertcuebintochdsize
 )
-IF %D%==N ( 
+IF /I %D%==N ( 
 set delete=No
 GOTO convertcuebintochdsize
 )
@@ -150,15 +150,15 @@ ECHO 1 - 16kb (bigger files, faster access/less CPU, choose this if you're unsur
 ECHO 2 - 128kb (balanced)
 ECHO 3 - 256kb (smaller files, slower access/more CPU)
 SET /P S=Type 1, 2, or 3 then press ENTER:
-IF %S%==1 (
+IF /I %S%==1 (
 set blocksize=17136
 GOTO convertcuebintochdstart
 )
-IF %S%==2 (
+IF /I %S%==2 (
 set blocksize=132192
 GOTO convertcuebintochdstart
 )
-IF %S%==3 (
+IF /I %S%==3 (
 set blocksize=264384
 GOTO convertcuebintochdstart
 )
@@ -170,11 +170,11 @@ IF exist "chdman.exe" (
 	IF exist "%%~nI.bin" (
 		chdman createcd -hs %blocksize% -i "%%I" -o "%%~nI.chd"
 		FOR %%S IN ("%%~nI.chd") DO (
-		 	IF %%~zS LSS 1 ( call :errorchdfailed %%S )
+		 	IF /I %%~zS LSS 1 ( call :errorchdfailed %%S )
 		)
 	) else ( call :errorchdfailed "%%~nI.bin" )
   
-  	IF %delete% == Yes ( 
+  	IF /I %delete% == Yes ( 
 		del "%%I"
 		del "%%~nI.bin"
   	)
@@ -188,11 +188,11 @@ REM ================================CONVERT CSO TO CHD =========================
 :convertcsotochd
 ECHO Do you want to delete the original CSO files as they are converted to CHD?
 SET /P D=Type Y or N then press ENTER:
-IF %D%==Y ( 
+IF /I %D%==Y ( 
 set delete=Yes
 GOTO convertcsotochdsize
 )
-IF %D%==N ( 
+IF /I %D%==N ( 
 set delete=No
 GOTO convertcsotochdsize
 )
@@ -205,15 +205,15 @@ ECHO 1 - 16kb (bigger files, faster access/less CPU, choose this if you're unsur
 ECHO 2 - 128kb (balanced)
 ECHO 3 - 256kb (smaller files, slower access/more CPU)
 SET /P S=Type 1, 2, or 3 then press ENTER:
-IF %S%==1 (
+IF /I %S%==1 (
 set blocksize=16384
 GOTO convertcsotochdstart
 )
-IF %S%==2 (
+IF /I %S%==2 (
 set blocksize=131072
 GOTO convertcsotochdstart
 )
-IF %S%==3 (
+IF /I %S%==3 (
 set blocksize=262144
 GOTO convertcsotochdstart
 )
@@ -227,18 +227,18 @@ IF exist "maxcso.exe" (
 		maxcso --decompress "%%I"
 
 		FOR %%S IN ("%%~nI.iso") DO (
-			IF %%~zS LSS 1 ( call :errorcsoextractfailed %%S )
+			IF /I %%~zS LSS 1 ( call :errorcsoextractfailed %%S )
 		)
 	
 		IF exist "%%~nI.iso" (
 			chdman createraw -us 2048 -hs %blocksize% -f -i "%%~nI.iso" -o "%%~nI.chd"
 			FOR %%S IN ("%%~nI.chd") DO (
-		 		IF %%~zS LSS 1 ( call :errorchdfailed %%S )
+		 		IF /I %%~zS LSS 1 ( call :errorchdfailed %%S )
 			)
 			del "%%~nI.iso"
 		) else ( call :errorchdfailed "%%~nI.iso" )
 	
-		IF %delete% == Yes ( del "%%I" )
+		IF /I %delete% == Yes ( del "%%I" )
   	)
   ) else ( GOTO errorchd )
 ) else ( GOTO errorcso )
@@ -250,11 +250,11 @@ REM ================================CONVERT CHD TO CSO =========================
 :convertchdtocso
 ECHO Do you want to delete the original CHD files as they are converted to CSO?
 SET /P D=Type Y or N then press ENTER:
-IF %D%==Y ( 
+IF /I %D%==Y ( 
 set delete=Yes
 GOTO convertchdtocsosize
 )
-IF %D%==N ( 
+IF /I %D%==N ( 
 set delete=No
 GOTO convertchdtocsosize
 )
@@ -267,15 +267,15 @@ ECHO 1 - 16kb (bigger files, faster access/less CPU, choose this if you're unsur
 ECHO 2 - 128kb (balanced)
 ECHO 3 - 256kb (smaller files, slower access/more CPU)
 SET /P S=Type 1, 2, or 3 then press ENTER:
-IF %S%==1 (
+IF /I %S%==1 (
 set blocksize=16384
 GOTO convertchdtocsostart
 )
-IF %S%==2 (
+IF /I %S%==2 (
 set blocksize=131072
 GOTO convertchdtocsostart
 )
-IF %S%==3 (
+IF /I %S%==3 (
 set blocksize=262144
 GOTO convertchdtocsostart
 )
@@ -289,18 +289,18 @@ IF exist "maxcso.exe" (
 		chdman extractraw -i "%%I" -o "%%~nI.iso"
 
 		FOR %%S IN ("%%~nI.iso") DO (
-			IF %%~zS LSS 1 call :errorchdextractfailed "%%~nI.iso"
+			IF /I %%~zS LSS 1 call :errorchdextractfailed "%%~nI.iso"
 		)
 	
 		IF exist "%%~nI.iso" (
 			maxcso --block=%blocksize% "%%~nI.iso"
  			FOR %%S IN ("%%~nI.cso") DO (
-  				IF %%~zS LSS 1 ( call :errorcsocompressfailed %%S )
+  				IF /I %%~zS LSS 1 ( call :errorcsocompressfailed %%S )
   			)
 			del "%%~nI.iso"
 		) else ( call :errorchdextractfailed "%%~nI.iso" )
 	
-		IF %delete% == Yes ( del "%%I" )
+		IF /I %delete% == Yes ( del "%%I" )
   	)
   ) else ( GOTO errorchd )
 ) else ( GOTO errorcso )
@@ -312,11 +312,11 @@ REM ================================EXTRACT DVD CHD TO ISO =====================
 :extractdvdchdtoiso
 ECHO Do you want to delete the original CSO files as they are converted?
 SET /P D=Type Y or N then press ENTER:
-IF %D%==Y ( 
+IF /I %D%==Y ( 
 set delete=Yes
 GOTO extractdvdchdtoisostart
 )
-IF %D%==N ( 
+IF /I %D%==N ( 
 set delete=No
 GOTO extractdvdchdtoisostart
 )
@@ -327,10 +327,10 @@ IF exist "chdman.exe" (
   FOR %%I IN (*.chd) DO (
   	chdman extractraw -i "%%I" -o "%%~nI.iso"
   	FOR %%S IN ("%%~nI.iso") DO (
-  		IF %%~zS LSS 1 ( call :errorchdextractfailed %%S )
+  		IF /I %%~zS LSS 1 ( call :errorchdextractfailed %%S )
   	)
 
- 	IF %delete% == Yes ( del "%%I" )
+ 	IF /I %delete% == Yes ( del "%%I" )
   )
 ) else ( GOTO errorchd )
 GOTO done
@@ -341,11 +341,11 @@ REM =============================EXTRACT CD CHD TO CUE/BIN =====================
 :extractcdchdtoiso
 ECHO Do you want to delete the original CSO files as they are converted?
 SET /P D=Type Y or N then press ENTER:
-IF %D%==Y ( 
+IF /I %D%==Y ( 
 set delete=Yes
 GOTO extractcdchdtoisostart
 )
-IF %D%==N ( 
+IF /I %D%==N ( 
 set delete=No
 GOTO extractcdchdtoisostart
 )
@@ -356,12 +356,12 @@ IF exist "chdman.exe" (
 FOR %%I IN (*.chd) DO (
   	chdman extractcd -i "%%I" -o "%%~nI.cue"
   	FOR %%S IN ("%%~nI.cue") DO (
-  		IF %%~zS LSS 1 ( call :errorchdextractfailed %%S )
+  		IF /I %%~zS LSS 1 ( call :errorchdextractfailed %%S )
   	)
 	FOR %%S IN ("%%~nI.bin") DO (
-  		IF %%~zS LSS 1 ( call :errorchdextractfailed %%S )
+  		IF /I %%~zS LSS 1 ( call :errorchdextractfailed %%S )
   	)
- 	IF %delete% == Yes ( del "%%I" )
+ 	IF /I %delete% == Yes ( del "%%I" )
   )
 ) else ( GOTO errorchd )
 GOTO done
@@ -372,11 +372,11 @@ REM ================================EXTRACT CSO TO ISO =========================
 :extractcsotoiso
 ECHO Do you want to delete the original CSO files as they are converted?
 SET /P D=Type Y or N then press ENTER:
-IF %D%==Y ( 
+IF /I %D%==Y ( 
 set delete=Yes
 GOTO extractcsotoisostart
 )
-IF %D%==N ( 
+IF /I %D%==N ( 
 set delete=No
 GOTO extractcsotoisostart
 )
@@ -387,9 +387,9 @@ IF exist "maxcso.exe" (
 FOR %%I IN (*.cso) DO (
   	maxcso --decompress "%%I"
   	FOR %%S IN ("%%~nI.iso") DO (
-  		IF %%~zS LSS 1 ( call :errorcsoextractfailed %%S )
+  		IF /I %%~zS LSS 1 ( call :errorcsoextractfailed %%S )
   	)
- 	IF %delete% == Yes ( del "%%I" )
+ 	IF /I %delete% == Yes ( del "%%I" )
   )
 ) else ( GOTO errorcso )
 GOTO done
